@@ -130,5 +130,4 @@ class RealDebridCompletedAPI(RealDebridAPI):
 
 if __name__ == "__main__":
     me = singleton.SingleInstance() # Prevent multiple instances of the script from running at once
-    time.sleep(30)
     RealDebridCompletedAPI().process()
