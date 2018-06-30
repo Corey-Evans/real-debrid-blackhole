@@ -1,0 +1,9 @@
+[BlackHole]
+WatchDirectory =
+[RealDebrid]
+private_api_token =
+[Pushover]
+app_token =
+user_key =
+[Downloader]
+destination_directory =

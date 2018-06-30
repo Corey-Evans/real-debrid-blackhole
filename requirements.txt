@@ -1,0 +1,15 @@
+argh==0.26.2
+certifi==2018.4.16
+chardet==3.0.4
+EasyProcess==0.2.3
+idna==2.7
+pathtools==0.1.2
+pbr==4.0.4
+pyunpack==0.1.2
+PyYAML==3.12
+requests==2.19.1
+six==1.11.0
+tendo==0.2.12
+urllib3==1.23
+watchdog==0.8.3
+wget==3.2
