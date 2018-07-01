@@ -11,15 +11,16 @@ import wget
 from pyunpack import Archive
 from tendo import singleton
 
+from aria2c_api import Aria2cAPI
 from pushover_sender import PushoverSender
 from real_debrid_api import RealDebridAPI
 
 class FileFetcher:
 
     def __init__(self):
-        config = ConfigParser()
-        config.read('config.ini')
-        self.destination_directory=config.get('Downloader', 'destination_directory')
+        self.config = ConfigParser()
+        self.config.read('config.ini')
+        self.destination_directory=self.config.get('Downloader', 'destination_directory')
 
     def download(self, url, torrent_name):
         torrent_name = urllib.parse.unquote(urllib.parse.unquote(torrent_name))
@@ -29,7 +30,14 @@ class FileFetcher:
         except: pass
         os.mkdir(tmp_dir_name)
         PushoverSender().send('Download from RealDebrid started: {}'.format(url))
-        tmp_file_path = wget.download(url, tmp_dir_name)
+        if not self.config.get('Aria2c', 'secret_tocken'):
+            tmp_file_path = wget.download(url, tmp_dir_name)
+        else:
+            gid = Aria2cAPI().add(url, tmp_dir_name)
+            complete = False
+            while not complete:
+                complete, tmp_file_path = Aria2cAPI().is_complete(gid)
+                time.sleep(5)
         if tmp_file_path.endswith('.rar'):
             try:
                 Archive(filename=tmp_file_path).extractall(tmp_dir_name)

@@ -7,3 +7,6 @@ app_token =
 user_key =
 [Downloader]
 destination_directory =
+[Aria2c]
+url = http://xxxxxxx/rpc
+secret_tocken =
